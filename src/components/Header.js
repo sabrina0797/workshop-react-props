@@ -1,21 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
+import { createRef } from "react";
 import Stats from "./Stats";
+import PropTypes from "prop-types";
 
-export default function Header({ title, players }) {
+const Header = ({ title, players }) => {
+  const titleRef = createRef();
+
+  const handleClick = () => {
+    console.log("titleRef", titleRef);
+    titleRef.current.style.color = "red";
+  };
+
   return (
-    <header>
+    <header onClick={handleClick}>
       <Stats players={players} />
-      <h1>{title}</h1>
+      <h1 ref={titleRef}>{title}</h1>
     </header>
   );
-}
+};
+
+export default Header;
 
 Header.propTypes = {
   title: PropTypes.string,
-  players: PropTypes.arrayOf(PropTypes.object),
+  players: PropTypes.array,
 };
 
 Header.defaultProps = {
-  title: "scorboard",
+  title: "scoreboard",
 };
